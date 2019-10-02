@@ -1,2 +1,3 @@
-# trangia-production
-Trangia Production 
+# Trangia Production 
+
+Deployed at: https://trangiafs.com/ and https://trangiafs.com.vn/
