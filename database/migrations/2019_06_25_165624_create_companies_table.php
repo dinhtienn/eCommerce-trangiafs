@@ -17,6 +17,10 @@ class CreateCompaniesTable extends Migration
             $table->increments('id');
             $table->string('email');
             $table->string('phone');
+            $table->string('address')->nullable();
+            $table->text('description')->nullable();
+            $table->string('logo');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

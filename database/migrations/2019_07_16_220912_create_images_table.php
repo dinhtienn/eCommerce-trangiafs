@@ -16,8 +16,7 @@ class CreateImagesTable extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id');
-            $table->string('link');
-            $table->integer('is_slide')->default(0);
+            $table->string('path');
             $table->timestamps();
         });
     }

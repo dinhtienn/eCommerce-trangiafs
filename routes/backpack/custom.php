@@ -17,7 +17,6 @@ Route::group([
     CRUD::resource('product', 'ProductCrudController');
     CRUD::resource('image', 'ImageCrudController');
     CRUD::resource('slide', 'SlideCrudController');
-    CRUD::resource('social', 'SocialCrudController');
     CRUD::resource('category_image', 'CategoryImageCrudController');
     CRUD::resource('message', 'MessageCrudController');
     CRUD::resource('top_product', 'TopProductCrudController');
