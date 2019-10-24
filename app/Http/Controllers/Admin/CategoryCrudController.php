@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
+use App\Models\Product;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
@@ -105,6 +106,18 @@ class CategoryCrudController extends CrudController
         return $redirect_location;
     }
 
+    public function destroy($id)
+    {
+        $this->deleteProducts($id);
+        $this->crud->hasAccessOrFail('delete');
+        $this->crud->setOperation('delete');
+
+        // get entry ID from Request (makes sure its the last ID for nested resources)
+        $id = $this->crud->getCurrentEntryId() ?? $id;
+
+        return $this->crud->delete($id);
+    }
+
     private function processDepth($request)
     {
         if ($request->get('parent_id') == null) {
@@ -114,5 +127,13 @@ class CategoryCrudController extends CrudController
             $request->request->add(['depth' => $category_parent->depth + 1]);
         }
         return $request;
+    }
+
+    private function deleteProducts($id)
+    {
+        $all_products = Product::where(['categories' => $id])->get();
+        foreach ($all_products as $product) {
+            Product::find($product->id)->delete();
+        }
     }
 }
