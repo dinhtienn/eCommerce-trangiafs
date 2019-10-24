@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ImagesTableSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class ImagesTableSeeder extends Seeder
                 $random_number = $faker->numberBetween(1, 16);
                 DB::table('images')->insert([
                     'product_id' => $i,
-                    'link' => "images/test_images/products/product-$random_number.jpg",
+                    'path' => "images/test_images/products/product-$random_number.jpg",
                 ]);
             }
         }

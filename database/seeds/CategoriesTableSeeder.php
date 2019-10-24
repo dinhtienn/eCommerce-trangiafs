@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use App\Models\Category;
 
 class CategoriesTableSeeder extends Seeder
 {
@@ -17,7 +19,9 @@ class CategoriesTableSeeder extends Seeder
         $list_categories = [];
         foreach ($categories_depth_1 as $item) {
             array_push($list_categories, [
-                'name' => $item
+                'name' => $item,
+                'image' => '/images/test_images/gallery-02.jpg',
+                'depth' => 1
             ]);
         }
 
@@ -30,12 +34,13 @@ class CategoriesTableSeeder extends Seeder
             array_push($list_categories, [
                 'name' => $item,
                 'parent_id' => $parent_id,
-                'depth' => 2
+                'depth' => 2,
+                'image' => '/images/test_images/gallery-02.jpg',
             ]);
         }
 
         foreach ($list_categories as $category) {
-            DB::table('categories')->insert($category);
+            Category::create($category)->save();
         }
     }
 }
