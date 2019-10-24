@@ -17,7 +17,7 @@ Route::group([
     CRUD::resource('product', 'ProductCrudController');
     CRUD::resource('image', 'ImageCrudController');
     CRUD::resource('slide', 'SlideCrudController');
-    CRUD::resource('category_image', 'CategoryImageCrudController');
+    CRUD::resource('social', 'SocialCrudController');
     CRUD::resource('message', 'MessageCrudController');
     CRUD::resource('top_product', 'TopProductCrudController');
     Route::get('/api/top_products', 'TopProductCrudController@getProducts')->name('admin.search.products');
