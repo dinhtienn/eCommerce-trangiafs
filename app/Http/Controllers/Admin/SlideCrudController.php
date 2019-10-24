@@ -35,20 +35,26 @@ class SlideCrudController extends CrudController
         */
 
         $check_slide = Slide::count();
-        if ($check_slide >= 3) {
+        if ($check_slide >= 4) {
             $this->crud->denyAccess('create');
         }
 
-        $this->crud->addColumn(['name' => 'id', 'type' => 'number', 'label' => 'ID']);
         $this->crud->addColumn(['name' => 'title', 'type' => 'text', 'label' => 'Tiêu đề']);
         $this->crud->addColumn(['name' => 'description', 'type' => 'text', 'label' => 'Mô tả ngắn']);
         $this->crud->addColumn(['name' => 'link', 'type' => 'text', 'label' => 'Đường dẫn']);
-        $this->crud->addColumn(['name' => 'img', 'type' => 'text', 'label' => 'Đường dẫn ảnh']);
+        $this->crud->addColumn(['name' => 'image', 'type' => 'image', 'label' => 'Hình ảnh']);
 
         $this->crud->addField(['name' => 'title', 'type' => 'text', 'label' => 'Tiêu đề']);
         $this->crud->addField(['name' => 'description', 'type' => 'text', 'label' => 'Mô tả ngắn']);
         $this->crud->addField(['name' => 'link', 'type' => 'text', 'label' => 'Đường dẫn']);
-        $this->crud->addField(['name' => 'img', 'type' => 'text', 'label' => 'Đường dẫn ảnh']);
+        $this->crud->addField([
+            'name' => 'image',
+            'type' => 'upload',
+            'label' => 'Hình ảnh',
+            'upload' => true,
+            'disk' => 'public',
+            'hint' => 'Hãy tối ưu hình ảnh trước khi tải lên, không tải lên ảnh quá nặng trên 250kb để tối ưu tốc độ tải trang!'
+        ]);
 
         // add asterisk for fields that are required in SlideRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');

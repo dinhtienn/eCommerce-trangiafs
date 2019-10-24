@@ -27,7 +27,7 @@ class SlideRequest extends FormRequest
     {
         return [
             // 'name' => 'required|min:5|max:255'
-            'img' => 'required',
+            'image' => 'required',
             'description' => 'max:30'
         ];
     }

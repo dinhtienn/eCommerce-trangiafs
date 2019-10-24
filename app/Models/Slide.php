@@ -11,5 +11,15 @@ class Slide extends Model
 
     protected $table = 'slide';
     public $timestamps = true;
-    protected $fillable = ['id', 'title', 'description', 'link', 'img'];
+    protected $fillable = ['title', 'description', 'link', 'image'];
+
+    public function setImageAttribute($value)
+    {
+        $attribute_name = "image";
+        $disk = "public";
+        $destination_path = "/uploads";
+
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+        $this->attributes['image'] = "/storage/" . $this->attributes['image'];
+    }
 }
