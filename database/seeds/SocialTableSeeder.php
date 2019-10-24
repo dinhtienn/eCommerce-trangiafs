@@ -18,8 +18,8 @@ class SocialTableSeeder extends Seeder
                 'link' => 'https://facebook.com',
             ],
             [
-                'social' => 'Google',
-                'link' => 'https://google.com',
+                'social' => 'Instagram',
+                'link' => 'https://www.instagram.com',
             ],
             [
                 'social' => 'Twitter',
