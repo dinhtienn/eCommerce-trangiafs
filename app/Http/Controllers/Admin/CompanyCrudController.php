@@ -46,7 +46,12 @@ class CompanyCrudController extends CrudController
         $this->crud->addField(['name' => 'email', 'type' => 'email', 'label' => 'Email']);
         $this->crud->addField(['name' => 'phone', 'type' => 'number', 'label' => 'Số điện thoại']);
         $this->crud->addField(['name' => 'address', 'type' => 'text', 'label' => 'Địa chỉ']);
-        $this->crud->addField(['name' => 'description', 'type' => 'textarea', 'label' => 'Mô tả']);
+        $this->crud->addField([
+            'name' => 'description',
+            'type' => 'ckeditor',
+            'label' => 'Mô tả',
+            'hint' => 'Bạn không nên thêm ảnh vào mô tả!'
+        ]);
         $this->crud->addField([
             'name' => 'image',
             'type' => 'upload',
