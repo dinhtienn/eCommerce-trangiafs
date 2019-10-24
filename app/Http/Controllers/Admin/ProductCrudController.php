@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Models\TopProduct;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\ProductRequest as StoreRequest;
@@ -34,34 +34,34 @@ class ProductCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $all_categories = Category::all();
-        $select_cate = array();
-        foreach ($all_categories as $category) {
-            $cate_id = $category->id;
-            $cate_name = $category->name;
-            $select_cate["$cate_id"] = $cate_name;
-        }
-
-        $this->crud->addColumn(['name' => 'id', 'type' => 'number', 'label' => 'ID']);
         $this->crud->addColumn(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
         $this->crud->addColumn([
             'name' => 'categories_id',
-            'type' => 'select_from_array',
+            'type' => 'select',
             'label' => 'Danh mục',
-            'options' => $select_cate,
+            'entity' => 'category',
+            'attribute' => 'name',
+            'model' => 'App\Models\Category'
         ]);
         $this->crud->addColumn(['name' => 'price', 'type' => 'number', 'label' => 'Giá cả']);
         $this->crud->addColumn(['name' => 'description', 'type' => 'text', 'label' => 'Mô tả']);
         $this->crud->addColumn(['name' => 'short_description', 'type' => 'text', 'label' => 'Mô tả ngắn']);
         $this->crud->addColumn(['name' => 'status', 'type' => 'text', 'label' => 'Tình trạng']);
+        $this->crud->addColumn([
+            'name' => 'top',
+            'type' => 'select_from_array',
+            'label' => 'Top',
+            'options' => ['false' => 'Không', 'true' => 'Có']
+        ]);
 
         $this->crud->addField(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
         $this->crud->addField([
             'name' => 'categories_id',
             'label' => 'Danh mục',
-            'type' => 'select_from_array',
-            'options' => $select_cate,
-            'allows_null' => false,
+            'type' => 'select',
+            'entity' => 'category',
+            'attribute' => 'name',
+            'model' => 'App\Models\Category'
         ]);
         $this->crud->addField(['name' => 'price', 'type' => 'number', 'number' => 'Giá cả']);
         $this->crud->addField(['name' => 'description', 'type' => 'textarea', 'label' => 'Mô tả']);
