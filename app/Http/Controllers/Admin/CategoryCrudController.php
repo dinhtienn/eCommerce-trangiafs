@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
@@ -33,14 +34,52 @@ class CategoryCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->addColumn(['name' => 'id', 'type' => 'number', 'label' => 'ID']);
-        $this->crud->addColumn(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
-        $this->crud->addColumn(['name' => 'depth', 'type' => 'number', 'label' => 'Độ sâu']);
-        $this->crud->addColumn(['name' => 'num_products', 'type' => 'number', 'label' => 'Số sản phẩm']);
+        $this->crud->addColumn([
+            'name' => 'name',
+            'type' => 'text',
+            'label' => 'Tên'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'parent_id',
+            'type' => 'select',
+            'label' => 'Danh mục cha',
+            'entity' => 'parent',
+            'attribute' => "name",
+            'model' => "App\Models\Category",
+        ]);
+        $this->crud->addColumn([
+            'name' => 'image',
+            'type' => 'image',
+            'label' => 'Hình ảnh',
+        ]);
+        $this->crud->addColumn([
+            'name' => 'num_products',
+            'type' => 'number',
+            'label' => 'Số sản phẩm'
+        ]);
 
-        $this->crud->addField(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
-        $this->crud->addField(['name' => 'parent_id', 'type' => 'number', 'label' => 'Parent ID']);
-        $this->crud->addField(['name' => 'depth', 'type' => 'number', 'number' => 'Độ sâu']);
+        $this->crud->addField([
+            'name' => 'name',
+            'type' => 'text',
+            'label' => 'Tên'
+        ]);
+        $this->crud->addField([
+            'name' => 'parent_id',
+            'type' => 'select',
+            'label' => 'Danh mục cha',
+            'entity' => 'parent',
+            'attribute' => 'name',
+            'model' => 'App\Models\Category',
+            'hint' => 'Chọn danh mục cha hoặc để trống nếu danh mục này độc lập'
+        ]);
+        $this->crud->addField([
+            'name' => 'image',
+            'type' => 'upload',
+            'label' => 'Ảnh danh mục',
+            'upload' => true,
+            'disk' => 'public',
+            'hint' => 'Hãy tối ưu hình ảnh trước khi tải lên, không tải lên ảnh quá nặng trên 250kb để tối ưu tốc độ tải trang!'
+        ]);
 
         // add asterisk for fields that are required in CategoryRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
@@ -49,6 +88,7 @@ class CategoryCrudController extends CrudController
 
     public function store(StoreRequest $request)
     {
+        $request = $this->processDepth($request);
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
@@ -63,5 +103,16 @@ class CategoryCrudController extends CrudController
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
+    }
+
+    private function processDepth($request)
+    {
+        if ($request->get('parent_id') == null) {
+            $request->request->add(['depth' => 1]);
+        } else {
+            $category_parent = Category::findOrFail($request->get('parent_id'));
+            $request->request->add(['depth' => $category_parent->depth + 1]);
+        }
+        return $request;
     }
 }

@@ -11,11 +11,11 @@ class Category extends Model
 
     protected $table = 'categories';
 
-    protected $fillable = ['name', 'parent_id', 'depth', 'slug', 'num_products'];
+    protected $fillable = ['name', 'parent_id', 'depth', 'num_products', 'image'];
 
     public function parent()
     {
-        return $this->hasOne('App\Models\Category', 'id', 'parent_id');
+        return $this->belongsTo('App\Models\Category', 'parent_id', 'id');
     }
 
     public function products()
@@ -23,8 +23,13 @@ class Category extends Model
         return $this->hasMany('App\Models\Product', 'categories_id');
     }
 
-    public function image()
+    public function setImageAttribute($value)
     {
-        return $this->hasOne('App\Models\CategoryImage', 'category_id', 'id');
+        $attribute_name = "image";
+        $disk = "public";
+        $destination_path = "/uploads";
+
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+        $this->attributes['image'] = "/storage/" . $this->attributes['image'];
     }
 }
