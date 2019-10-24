@@ -74,6 +74,15 @@ class ProductCrudController extends CrudController
             'allows_null' => false,
             'default' => 'Còn hàng'
         ]);
+        $this->crud->addField([
+            'name' => 'top',
+            'type' => 'select_from_array',
+            'label' => 'Top',
+            'options' => ['false' => 'Không', 'true' => 'Có'],
+            'allows_null' => false,
+            'default' => 'false',
+            'hint' => 'Nếu bạn muốn đẩy sản phẩm ra phần các sản phẩm tốt nhất, hãy chọn Có!'
+        ]);
 
         // add asterisk for fields that are required in ProductRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
@@ -82,6 +91,7 @@ class ProductCrudController extends CrudController
 
     public function store(StoreRequest $request)
     {
+        $this->processTopProduct($request);
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
@@ -91,10 +101,38 @@ class ProductCrudController extends CrudController
 
     public function update(UpdateRequest $request)
     {
+        $this->processTopProduct($request);
         // your additional operations before save here
         $redirect_location = parent::updateCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
+    }
+
+    public function destroy($id)
+    {
+        $this->deleteTopProduct($id);
+        $this->crud->hasAccessOrFail('delete');
+        $this->crud->setOperation('delete');
+
+        // get entry ID from Request (makes sure its the last ID for nested resources)
+        $id = $this->crud->getCurrentEntryId() ?? $id;
+
+        return $this->crud->delete($id);
+    }
+
+    public function deleteTopProduct($id)
+    {
+        $top_product = TopProduct::where(['product_id' => $id])->first();
+        if ($top_product) {
+            TopProduct::find($top_product->id)->delete();
+        }
+    }
+
+    public function processTopProduct($request)
+    {
+        if ($request->get('top') == 'true') {
+            TopProduct::create(['product_id' => $request->get('id')])->save();
+        }
     }
 }

@@ -36,7 +36,6 @@ class TopProductCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-
         $this->crud->addColumn([
             'label' => "Tên sản phẩm",
             'type' => "select",
@@ -65,6 +64,7 @@ class TopProductCrudController extends CrudController
 
     public function store(StoreRequest $request)
     {
+        $this->processProductToTop($request);
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
@@ -81,9 +81,32 @@ class TopProductCrudController extends CrudController
         return $redirect_location;
     }
 
+    public function destroy($id)
+    {
+        $this->processProductToNormal($id);
+        $this->crud->hasAccessOrFail('delete');
+        $this->crud->setOperation('delete');
+
+        // get entry ID from Request (makes sure its the last ID for nested resources)
+        $id = $this->crud->getCurrentEntryId() ?? $id;
+
+        return $this->crud->delete($id);
+    }
+
     public function getProducts(Request $request)
     {
         $product_title = $request->get('q');
         return Product::where('name', 'like', "%$product_title%")->paginate();
+    }
+
+    public function processProductToTop($request)
+    {
+        Product::where(['id' => $request->get('product_id')])->update(['top' => 'true']);
+    }
+
+    public function processProductToNormal($id)
+    {
+        $product_id = TopProduct::where(['id' => $id])->first()->product_id;
+        Product::where(['id' => $product_id])->update(['top' => 'false']);
     }
 }
