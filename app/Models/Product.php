@@ -2,12 +2,15 @@
 
 namespace App\Models;
 use Backpack\CRUD\CrudTrait;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
     use CrudTrait;
+    use HasSlug;
 
     protected $table = 'products';
     public $timestamps = true;
@@ -21,5 +24,15 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany('App\Models\Image');
+    }
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 }
