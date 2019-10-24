@@ -36,19 +36,16 @@ class TopProductCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $all_top_products = TopProduct::all('product_id');
-        $products_name = [];
-        foreach ($all_top_products as $product) {
-            $product_id = $product->product_id;
-            $product_name = $product->product->name;
-            $products_name["$product_id"] = $product_name;
-        }
+
         $this->crud->addColumn([
+            'label' => "Tên sản phẩm",
+            'type' => "select",
             'name' => 'product_id',
-            'type' => 'select_from_array',
-            'label' => "Sản phẩm",
-            'options' => $products_name,
+            'entity' => 'product',
+            'attribute' => "name",
+            'model' => "App\Models\Product",
         ]);
+
         $this->crud->addField([
             'label' => 'Sản phẩm',
             'type'  => 'select2_from_ajax',

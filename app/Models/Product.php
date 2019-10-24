@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Models;
+
 use Backpack\CRUD\CrudTrait;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -14,7 +14,7 @@ class Product extends Model
 
     protected $table = 'products';
     public $timestamps = true;
-    protected $fillable = ['id', 'name', 'categories_id', 'price', 'description', 'short_description', 'status'];
+    protected $fillable = ['name', 'categories_id', 'price', 'description', 'short_description', 'status'];
 
     public function category()
     {
