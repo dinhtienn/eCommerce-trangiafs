@@ -64,7 +64,11 @@ class ProductCrudController extends CrudController
             'model' => 'App\Models\Category'
         ]);
         $this->crud->addField(['name' => 'price', 'type' => 'number', 'number' => 'Giá cả']);
-        $this->crud->addField(['name' => 'description', 'type' => 'textarea', 'label' => 'Mô tả']);
+        $this->crud->addField([
+            'name' => 'description',
+            'type' => 'ckeditor',
+            'label' => 'Mô tả'
+        ]);
         $this->crud->addField(['name' => 'short_description', 'type' => 'text', 'number' => 'Mô tả ngắn']);
         $this->crud->addField([
             'name' => 'status',
