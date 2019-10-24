@@ -32,7 +32,7 @@ class CompanyRequest extends FormRequest
             'email' => 'required',
             'address' => 'required',
             'description' => 'required',
-            'img' => 'required'
+            'image' => 'required',
         ];
     }
 

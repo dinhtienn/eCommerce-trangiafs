@@ -34,17 +34,35 @@ class CompanyCrudController extends CrudController
         */
 
         $this->crud->denyAccess('create');
+        $this->crud->denyAccess('delete');
+
         $this->crud->addColumn(['name' => 'email', 'type' => 'email', 'label' => 'Email']);
         $this->crud->addColumn(['name' => 'phone', 'type' => 'text', 'label' => 'Số điện thoại']);
         $this->crud->addColumn(['name' => 'address', 'type' => 'text', 'label' => 'Địa chỉ']);
         $this->crud->addColumn(['name' => 'description', 'type' => 'text', 'label' => 'Mô tả']);
+        $this->crud->addColumn(['name' => 'image', 'type' => 'image', 'label' => 'Hình ảnh']);
+        $this->crud->addColumn(['name' => 'logo', 'type' => 'image', 'label' => 'Logo']);
 
         $this->crud->addField(['name' => 'email', 'type' => 'email', 'label' => 'Email']);
         $this->crud->addField(['name' => 'phone', 'type' => 'number', 'label' => 'Số điện thoại']);
         $this->crud->addField(['name' => 'address', 'type' => 'text', 'label' => 'Địa chỉ']);
         $this->crud->addField(['name' => 'description', 'type' => 'textarea', 'label' => 'Mô tả']);
-        $this->crud->addField(['name' => 'img', 'type' => 'text', 'label' => 'Ảnh']);
-        $this->crud->addField(['name' => 'logo', 'type' => 'text', 'label' => 'Logo']);
+        $this->crud->addField([
+            'name' => 'image',
+            'type' => 'upload',
+            'label' => 'Hình ảnh',
+            'upload' => true,
+            'disk' => 'public',
+            'hint' => 'Hãy tối ưu hình ảnh trước khi tải lên, không tải lên ảnh quá nặng trên 250kb để tối ưu tốc độ tải trang!'
+        ]);
+        $this->crud->addField([
+            'name' => 'logo',
+            'type' => 'upload',
+            'label' => 'Logo',
+            'upload' => true,
+            'disk' => 'public',
+            'hint' => 'Hãy tối ưu hình ảnh trước khi tải lên, không tải lên ảnh quá nặng trên 250kb để tối ưu tốc độ tải trang!'
+        ]);
 
         // add asterisk for fields that are required in CompanyRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
