@@ -7,7 +7,7 @@
             <div class="wrap-slick1">
                 <div class="slick1">
                     @foreach($slide_images as $image)
-                        <div class="item-slick1" style="background-image: url({{ url("$image->img") }});">
+                        <div class="item-slick1" style="background-image: url({{ url("$image->image") }});">
                             <div class="container h-full">
                                 <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
                                     @if(!empty($image->title))
@@ -47,7 +47,7 @@
         <div class="container">
             <div class="row">
                 @foreach($all_categories as $category)
-                    @php $category_image = $category->image->link @endphp
+                    @php $category_image = $category->image @endphp
                     <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
                         <!-- Block1 -->
                         <div class="block1 wrap-pic-w">
@@ -92,7 +92,7 @@
                     @foreach($lastest_products as $product)
                         @if(count($product->images) > 0)
                             @php
-                                $thumpnail_img = $product->images[0]->link;
+                                $thumpnail_img = $product->images[0]->path;
                             @endphp
                             <div class="each-product col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
                                 <!-- Block2 -->
@@ -140,7 +140,7 @@
                     @foreach($top_products as $product)
                         @if(count($product->product->images) > 0)
                             @php
-                                $thumpnail_img = $product->product->images[0]->link;
+                                $thumpnail_img = $product->product->images[0]->path;
                             @endphp
                             <div class="each-product col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
                                 <!-- Block2 -->

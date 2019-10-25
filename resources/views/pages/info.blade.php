@@ -30,7 +30,7 @@
 					<div class="how-bor1 ">
 						<div class="hov-img0">
 							@foreach($header_data['company_info'] as $company)
-								<img src="{{ url("$company->img") }}" alt="IMG">
+								<img src="{{ url("$company->image") }}" alt="IMG">
 							@endforeach
 						</div>
 					</div>

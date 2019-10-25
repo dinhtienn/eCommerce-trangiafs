@@ -53,7 +53,7 @@
 					@if(count($product->images) > 0)
 						@php
 							$index = $all_products->search($product);
-							$thumpnail_img = $product->images[0]->link;
+							$thumpnail_img = $product->images[0]->path;
 						@endphp
 						<div class="each-product col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item @foreach($list_categories[$index] as $category) {{ str_replace(' ', '', $category) }} @endforeach">
 							<!-- Block2 -->

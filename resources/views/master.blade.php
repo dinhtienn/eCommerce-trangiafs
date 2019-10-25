@@ -106,13 +106,13 @@
                     <a href="/">Trang chủ</a>
                 </li>
                 <li>
-                    <a href="#">Mua sắm</a>
+                    <a href="{{ route('product') }}">Mua sắm</a>
                 </li>
                 <li>
-                    <a href="#">Thông tin</a>
+                    <a href="{{ route('info') }}">Thông tin</a>
                 </li>
                 <li>
-                    <a href="#">Liên hệ</a>
+                    <a href="{{ route('contact') }}">Liên hệ</a>
                 </li>
             </ul>
         </div>
@@ -247,7 +247,7 @@
                 </button>
 
                 <div id="quick-view-content" class="row">
-                    {{-- AJAX RENGER --}}
+                    {{-- AJAX RENDER --}}
                 </div>
             </div>
         </div>

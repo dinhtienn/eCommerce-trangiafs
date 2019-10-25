@@ -13,7 +13,7 @@ class HomeController extends FrontendController
     public function index()
     {
         $slide_images = Slide::all();
-        $all_categories = Category::all(['id', 'name']);
+        $all_categories = Category::all(['id', 'name', 'image']);
         $lastest_products = Product::orderBy('created_at', 'desc')->take(12)->get();
         $top_products = TopProduct::all();
 

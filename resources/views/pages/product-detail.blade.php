@@ -43,11 +43,11 @@
 
 							<div class="slick3 gallery-lb">
 								@foreach($product->images as $image)
-									<div class="item-slick3" data-thumb="{{ $image->link }}">
+									<div class="item-slick3" data-thumb="{{ $image->path }}">
 										<div class="wrap-pic-w pos-relative">
-											<img src="{{ $image->link }}" alt="IMG-PRODUCT">
+											<img src="{{ $image->path }}" alt="IMG-PRODUCT">
 
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{ $image->link }}">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{ $image->path }}">
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
@@ -136,7 +136,7 @@
 					@foreach($product->category->products as $product)
 						@if(count($product->images) > 0)
 							@php
-								$thumpnail_img = $product->images[0]->link;
+								$thumpnail_img = $product->images[0]->path;
 							@endphp
 							<div class="each-product col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
 								<!-- Block2 -->

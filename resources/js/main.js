@@ -319,11 +319,11 @@
                 var thumbHtml = '';
                 for (let i = 0; i < data['images'].length; i++) {
                     thumbHtml = thumbHtml + `
-                        <div class="item-slick3" data-thumb="${ data['images'][i]['link'] }">
+                        <div class="item-slick3" data-thumb="${ data['images'][i]['path'] }">
                             <div class="wrap-pic-w pos-relative">
-                                <img src="${ data['images'][i]['link'] }" alt="IMG-PRODUCT">
+                                <img src="${ data['images'][i]['path'] }" alt="IMG-PRODUCT">
 
-                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${ data['images'][i]['link'] }">
+                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${ data['images'][i]['path'] }">
                                     <i class="fa fa-expand"></i>
                                 </a>
                             </div>
