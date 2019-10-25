@@ -2,7 +2,7 @@
 <li><a href="{{ backpack_url('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
 <li class="header">Quản lý sản phẩm</li>
 <li><a href='{{ backpack_url('product') }}'><i class='fa fa-product-hunt'></i> <span>Sản phẩm</span></a></li>
-<li><a href='{{ backpack_url('image') }}'><i class='fa fa-image'></i> <span>Ảnh</span></a></li>
+<li><a href='{{ backpack_url('image') }}'><i class='fa fa-image'></i> <span>Ảnh sản phẩm</span></a></li>
 <li><a href='{{ backpack_url('slide') }}'><i class='fa fa-slideshare'></i> <span>Slide ảnh</span></a></li>
 <li><a href='{{ backpack_url('category') }}'><i class='fa fa-list-alt'></i> <span>Danh mục</span></a></li>
 

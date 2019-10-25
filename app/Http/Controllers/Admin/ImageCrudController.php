@@ -27,6 +27,7 @@ class ImageCrudController extends CrudController
         $this->crud->setModel('App\Models\Image');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/image');
         $this->crud->setEntityNameStrings('Ảnh sản phẩm', 'Ảnh sản phẩm');
+        $this->crud->orderBy('updated_at', 'desc');
 
         /*
         |--------------------------------------------------------------------------
@@ -34,31 +35,18 @@ class ImageCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $all_products = Product::all();
-        $select_cate = array();
-        foreach ($all_products as $product) {
-            $prod_id = $product->id;
-            $prod_name = $product->name;
-            $select_cate["$prod_id"] = $prod_name;
-        }
-
-        $this->crud->addColumn(['name' => 'id', 'type' => 'number', 'label' => 'ID']);
         $this->crud->addColumn([
             'name' => 'product_id',
-            'type' => 'select_from_array',
+            'type' => 'select',
             'label' => 'Sản phẩm',
-            'options' => $select_cate,
+            'entity' => 'product',
+            'attribute' => 'name',
+            'model' => 'App\Models\Product'
         ]);
-        $this->crud->addColumn(['name' => 'link', 'type' => 'text', 'label' => 'Đường dẫn']);
+        $this->crud->addColumn(['name' => 'path', 'type' => 'image', 'label' => 'Hình ảnh']);
 
-        $this->crud->addField(['name' => 'product_id', 'type' => 'number', 'label' => 'ID Sản phẩm']);
-        $this->crud->addField([
-            'name' => 'link',
-            'type' => 'text',
-            'label' => 'Đường dẫn',
-            'hint' => 'Nhập đường dẫn ở phần Quản lý File tại đây'
-        ]);
-
+        $this->crud->denyAccess('create');
+        $this->crud->denyAccess('update');
         // add asterisk for fields that are required in ImageRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');

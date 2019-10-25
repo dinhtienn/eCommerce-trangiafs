@@ -13,8 +13,8 @@ class Image extends Model
     public $timestamps = true;
     protected $fillable = ['id', 'product_id', 'link'];
 
-    public function products()
+    public function product()
     {
-        return $this->belongsToMany('App\Models\Product', 'id');
+        return $this->belongsTo('App\Models\Product', 'product_id');
     }
 }

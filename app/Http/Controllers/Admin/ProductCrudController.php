@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Image;
+use App\Models\Product;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Models\TopProduct;
 
@@ -71,6 +73,13 @@ class ProductCrudController extends CrudController
         ]);
         $this->crud->addField(['name' => 'short_description', 'type' => 'text', 'number' => 'Mô tả ngắn']);
         $this->crud->addField([
+            'name' => 'images',
+            'label' => 'Hình ảnh',
+            'type' => 'upload_multiple',
+            'upload' => true,
+            'disk' => 'public',
+        ]);
+        $this->crud->addField([
             'name' => 'status',
             'type' => 'select_from_array',
             'label' => 'Tình trạng',
@@ -100,6 +109,7 @@ class ProductCrudController extends CrudController
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
+        $this->connectImagesToProduct();
         return $redirect_location;
     }
 
@@ -116,6 +126,7 @@ class ProductCrudController extends CrudController
     public function destroy($id)
     {
         $this->deleteTopProduct($id);
+        $this->deleteImages($id);
         $this->crud->hasAccessOrFail('delete');
         $this->crud->setOperation('delete');
 
@@ -133,10 +144,26 @@ class ProductCrudController extends CrudController
         }
     }
 
+    public function deleteImages($id)
+    {
+        $images = Image::where(['product_id' => $id])->get();
+        if ($images) {
+            foreach ($images as $image) {
+                Image::find($image->id)->delete();
+            }
+        }
+    }
+
     public function processTopProduct($request)
     {
         if ($request->get('top') == 'true') {
             TopProduct::create(['product_id' => $request->get('id')])->save();
         }
+    }
+
+    public function connectImagesToProduct()
+    {
+        $created_product = Product::orderBy('id', 'desc')->first();
+        Image::where(['product_id' => 0])->update(['product_id' => $created_product->id]);
     }
 }
