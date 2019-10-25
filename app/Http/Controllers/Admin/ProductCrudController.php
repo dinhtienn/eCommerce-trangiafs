@@ -78,6 +78,7 @@ class ProductCrudController extends CrudController
             'type' => 'upload_multiple',
             'upload' => true,
             'disk' => 'public',
+            'hint' => 'Không nên chọn quá 4 ảnh để tối ưu trải nghiệm người dùng, ảnh đầu tiên sẽ là hình ảnh đại diện cho sản phẩm!'
         ]);
         $this->crud->addField([
             'name' => 'status',
