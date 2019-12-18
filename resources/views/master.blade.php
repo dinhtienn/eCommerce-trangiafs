@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>TranGiaFS</title>
+    <title>FashionVN</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -69,6 +69,9 @@
                     </div>
                     <!-- Icon header -->
                     <div class="wrap-icon-header flex-w flex-r-m">
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="3">
+                            <i class="zmdi zmdi-shopping-cart"></i>
+                        </div>
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
                             <i class="zmdi zmdi-search"></i>
                         </div>
@@ -133,6 +136,86 @@
             </div>
         </div>
     </header>
+
+    <div class="wrap-header-cart js-panel-cart">
+        <div class="s-full js-hide-cart"></div>
+
+        <div class="header-cart flex-col-l p-l-65 p-r-25">
+            <div class="header-cart-title flex-w flex-sb-m p-b-8">
+				<span class="mtext-103 cl2">
+					Giỏ hàng của bạn
+				</span>
+
+                <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+                    <i class="zmdi zmdi-close"></i>
+                </div>
+            </div>
+
+            <div class="header-cart-content flex-w js-pscroll ps" style="position: relative; overflow: hidden;">
+                <ul class="header-cart-wrapitem w-full">
+                    <li class="header-cart-item flex-w flex-t m-b-12">
+                        <div class="header-cart-item-img">
+                            <img src="/images/test_images/products/product-1.jpg" alt="IMG">
+                        </div>
+
+                        <div class="header-cart-item-txt p-t-8">
+                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                White Shirt Pleat
+                            </a>
+
+                            <span class="header-cart-item-info">
+								1 x $19.00
+							</span>
+                        </div>
+                    </li>
+
+                    <li class="header-cart-item flex-w flex-t m-b-12">
+                        <div class="header-cart-item-img">
+                            <img src="/images/test_images/products/product-2.jpg" alt="IMG">
+                        </div>
+
+                        <div class="header-cart-item-txt p-t-8">
+                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                Converse All Star
+                            </a>
+
+                            <span class="header-cart-item-info">
+								1 x $39.00
+							</span>
+                        </div>
+                    </li>
+
+                    <li class="header-cart-item flex-w flex-t m-b-12">
+                        <div class="header-cart-item-img">
+                            <img src="/images/test_images/products/product-3.jpg" alt="IMG">
+                        </div>
+
+                        <div class="header-cart-item-txt p-t-8">
+                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                Nixon Porter Leather
+                            </a>
+
+                            <span class="header-cart-item-info">
+								1 x $17.00
+							</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="w-full">
+                    <div class="header-cart-total w-full p-tb-40">
+                        Tổng: $75.00
+                    </div>
+
+                    <div class="header-cart-buttons flex-w w-full">
+                        <a href="{{ route('card.checkout') }}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                            Xem giỏ hàng
+                        </a>
+                    </div>
+                </div>
+                <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div>
+        </div>
+    </div>
 
     @yield('main-page')
 
@@ -223,7 +306,7 @@
 
             <div>
                 <p class="stext-107 cl6 txt-center">
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> TranGiaFS
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Nhóm 6 - VUWIT15
                 </p>
             </div>
         </div>
@@ -369,5 +452,7 @@
     </script>
     <script src="js/main.js"></script>
     <script src="js/handle.js"></script>
+
+    @stack('js')
 </body>
 </html>

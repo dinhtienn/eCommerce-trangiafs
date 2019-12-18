@@ -59,4 +59,9 @@ class ProductController extends FrontendController
         $product = Product::findOrFail($product_id);
         return view('pages.product-detail', compact('product'));
     }
+
+    public function checkout()
+    {
+        return view('pages.checkout');
+    }
 }

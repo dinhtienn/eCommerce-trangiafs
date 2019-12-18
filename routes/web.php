@@ -31,6 +31,11 @@ Route::get('/san-pham', [
     'uses' => 'ProductController@index'
 ]);
 
+Route::get('/gio-hang', [
+    'as' => 'card.checkout',
+    'uses' => 'ProductController@checkout'
+]);
+
 //API
 Route::get('/xem-nhanh-san-pham', [
     'as' => 'ajax.product.view',
